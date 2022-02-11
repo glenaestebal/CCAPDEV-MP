@@ -1,3 +1,24 @@
 <div>
-    <h1> Register </h1>
+    
+    <link rel = "stylesheet" href = "../../assets/css/regstyle.css">
+
+
+
+    <div class="logo"><a href="index.html">Schedule Maker</a></div>
+    <form action = "/users/register" method = "POST">
+        <div class = "register-container">
+            <div class = "register-box">
+                <div class = "register-content">
+                    <input name = "email" class= "email-input" type = "text" id ="email-input" placeholder = "Email Address">
+                    <input name = "username" class= "user-input" type = "text" id ="username-input" placeholder = "Username">
+                    <input name = "firstName" class= "user-input" type = "text" id ="firstName-input" placeholder = "First name">
+                    <input name = "lastName" class= "user-input" type = "text" id ="lastName-input" placeholder = "Last name">
+                    <input name = "password" class= "pass-input" type= "password" id="password-input" placeholder= "Password">
+                    <input name = "confirmPassword" class= "pass-input" type= "password" id="password2-input" placeholder= "Confirm Password">
+
+                    <button class= "register-button" type="submit">REGISTER</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

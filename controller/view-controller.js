@@ -13,5 +13,4 @@ function scheduleView(req, res) {
 }
 
 
-
 module.exports = {registerView, loginView, scheduleView};
