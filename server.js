@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 const expHbs = require('express-handlebars');
+const session = require('express-session');
+
+
+const passport = require('passport');
 
 const mongoose = require('mongoose'); 
 const dbURI = 'mongodb://localhost/schedule-db';
@@ -10,16 +14,28 @@ const userRoute = require('./routes/user-route');
 const viewRoute = require('./routes/view-route');
 
 
+
 app.use (express.static(__dirname + "/"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 const port = 3000;
 
+require('./config/passport')(passport);
 
+// express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 
+// passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// routes
 app.use('/users', userRoute);
-
 app.use('', viewRoute);
 
 app.get("/", (req, res)=> {

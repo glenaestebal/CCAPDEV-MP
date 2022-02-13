@@ -3,13 +3,13 @@
     <link rel = "stylesheet" href = "../../assets/css/loginstyle.css">
    
 	<div class="logo"><a href="/">Schedule Maker</a></div>
-        <form>
+        <form action = "/users/login" method = "POST">
             <div class = "login-container">
                 <div class = "login-box">
                     <div class = "login-content">
-                        <input class = "user-input" type ="text" id ="username-input" placeholder = "Username">
-                        <input class= "pass-input" type= "password" id= "password-input" placeholder= "Password">
-                        <input class="login-button" type='button' value="LOGIN" onclick="isValid()"></input>
+                        <input name = "username" class = "user-input" type ="text" id ="username-input" placeholder = "Username">
+                        <input name = "password" class= "pass-input" type= "password" id= "password-input" placeholder= "Password">
+                        <input class="login-button" type="submit" value="LOGIN"></input>
                         <a href="register.html" class="register-button">CREATE AN ACCOUNT</a>
                     </div>
                 </div>

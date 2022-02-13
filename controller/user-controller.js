@@ -1,6 +1,7 @@
 
 const User = require('../models/user-model');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 const saltRound = 8;
 
 function registerUser(req, res) {
@@ -23,9 +24,11 @@ function registerUser(req, res) {
 
 }
 
-function loginUser(req, res) {
-    console.log("Login");
-    res.send(' ').status(200);
+function loginUser(req, res, next) {
+    passport.authenticate('local', {
+        successRedirect: '/schedules',
+        failureRedirect: '/login', 
+    })(req, res, next);
 
 }
 
