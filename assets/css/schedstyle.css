@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300&display=swap');
+
+html {
+    background-color: #EEEEEE;
+    font-family: 'Outfit', sans-serif;
+    
+}
+
+/* header */
+.header {
+    margin-top: 0px;
+    padding: 15px;
+    background: #548CA8;
+}
+
+.container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* nav-bar1*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+li a:hover {
+    background-color: #476072;
+}
+
+/* nav-bar2 */
+.drop-button {
+    background-color: #548CA8;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    border: none;
+    cursor: pointer;
+}
+  
+.dropdown {
+    position: relative;
+    display: block;
+    float: left;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.user-schedules {
+	float: left;
+	margin-top: 15px;
+	margin-left: 7.5%;
+}
+
+.user-schedules li a{
+	color: #476072;
+}
+
+.user-schedules li a:hover{
+	color: #FFFFFF;
+}
+
+.schedule {
+	width: 85%;
+	background-color: #FFFFFF;
+	box-shadow: 2px 2px 30px rgba(167,158,245,0.2);
+	display: flex;
+	margin: 30px auto;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 20px;
+	margin-top: 80px;
+	position: relative;
+	background-size: 1000px;
+	background-position: center;
+	border-radius: 10px;
+}
+
+.schedule, .user-schedules li {
+	list-style-type: none;
+}
+
+.schedule li a {
+	background-color: #FFFFFF;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    color: #548CA8;
+	margin: 5px;
+}
+
+.schedule li a:hover {
+	background-color: #548CA8;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    color: #FFFFFF;
+}
+
+table tr td {
+    border: 1px solid #ccc;
+}
