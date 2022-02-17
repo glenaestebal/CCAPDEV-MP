@@ -7,28 +7,35 @@ const saltRound = 8;
 function registerUser(req, res) {
    
     const { email, username, firstName, lastName, password, confirmPassword } = req.body;
+    let errors = [];
     
     
     // check required fields
     if (email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "" )   {
-        return res.render('register', { err: "Please fill in all fields." }  );
+        errors.push("Please fill in all fields.");
     }
-    if (password === confirmPassword) {
+
+    if (password !== confirmPassword)   {
+        errors.push("Passwords do not match.");
+    }
+
+    if (errors.length > 0)  {
+        res.render('register', { errors })
+    }
+    else    {
         bcrypt.hash(password, saltRound, (error, hashed) => {
             const user = new User({ email: email, username: username, firstName: firstName, lastName: lastName, password: hashed});
             user.save()
                 .then((user) => res.status(200).redirect('/login'))
                 .catch((error) => {
                     if (error.code === 11000)   {
-                        res.render('register', { err: "Email or username is already in use."});
+                        res.render('register', { errors: ["Email or username is already in use."]});
                     }
-                    res.render('register', { err: "An error occurred."});
+                    res.render('register', { errors: ["An error occurred."]});
                 });
         });
-    } else {
-        // check password match
-        res.render('register', { err: "Passwords do not match." }); 
-    }
+    } 
+
 
 }
 
