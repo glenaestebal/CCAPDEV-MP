@@ -3,10 +3,11 @@
     <div class = "container">
         <div>
             <ul>
-				<li><a href = "/profile">Profile</a></li>
-                <li><a href = "/schedules">My Schedules</a></li>
                 {{#if user}}
+				    <li><a href = "/profile">Profile</a></li>
+                    <li><a href = "/schedules">My Schedules</a></li>
                     <li><a href = "/users/logout">Logout</a></li>
+                    
                     {{else}}
                     <li><a href = "/login">Login</a></li>
                 {{/if}}
