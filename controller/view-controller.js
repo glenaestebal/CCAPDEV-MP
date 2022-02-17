@@ -12,5 +12,9 @@ function scheduleView(req, res) {
   res.render("schedules", {title: "Schedules | Schedule Maker"});
 }
 
+function profileView(req, res) {
+  res.render("profile", {title: "Profile | Schedule Maker"});
+}
 
-module.exports = {registerView, loginView, scheduleView};
+
+module.exports = {registerView, loginView, scheduleView, profileView};
