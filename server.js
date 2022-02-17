@@ -4,6 +4,7 @@ const app = express();
 const expHbs = require('express-handlebars');
 const session = require('express-session');
 
+const flash = require('connect-flash');
 
 const passport = require('passport');
 
@@ -23,6 +24,16 @@ const port = 3000;
 
 require('./config/passport')(passport);
 
+const hbs = expHbs.create({
+    extname: 'hbs',
+    defaultLayout: 'index',
+    layoutsDir: __dirname + '/views/layouts',
+    partialsDir: __dirname + '/views/partials'
+});
+
+app.set ('view engine', "hbs");
+app.engine ('hbs', hbs.engine);
+
 // express session
 app.use(session({
     secret: 'secret',
@@ -34,6 +45,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Connect flash
+app.use(flash());
+
+app.use(function(req, res, next) {
+  res.locals.error = req.flash('error');
+  res.locals.error_msg = req.flash('error_msg');
+
+  next();
+});
+
 // routes
 app.use('/users', userRoute);
 app.use('', viewRoute);
@@ -41,16 +62,6 @@ app.use('', viewRoute);
 app.get("/", (req, res)=> {
     res.render("index", {title: "Home | Schedule Maker"});
 })
-
-const hbs = expHbs.create({
-    extname: 'hbs',
-    defaultLayout: 'index',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials'
-});
-
-app.set ('view engine', "hbs");
-app.engine ('hbs', hbs.engine);
 
 mongoose.connect(dbURI, {useNewUrlParser : true, useUnifiedTopology: true})
 .then(function(result) {

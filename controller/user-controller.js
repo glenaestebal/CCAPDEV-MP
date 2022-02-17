@@ -6,30 +6,46 @@ const saltRound = 8;
 
 function registerUser(req, res) {
    
-    if (req.body.password === req.body.confirmPassword) {
-        bcrypt.hash(req.body.password, saltRound, (error, hashed) => {
-            const user = new User({ email: req.body.email, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: hashed});
+    const { email, username, firstName, lastName, password, confirmPassword } = req.body;
+    
+    
+    // check required fields
+    if (email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "" )   {
+        return res.render('register', { err: "Please fill in all fields." }  );
+    }
+    if (password === confirmPassword) {
+        bcrypt.hash(password, saltRound, (error, hashed) => {
+            const user = new User({ email: email, username: username, firstName: firstName, lastName: lastName, password: hashed});
             user.save()
                 .then((user) => res.status(200).redirect('/login'))
                 .catch((error) => {
-                    // remind to handle error
-                    console.log(error);
-                    res.status(400).send(" ")
+                    if (error.code === 11000)   {
+                        res.render('register', { err: "Email or username is already in use."});
+                    }
+                    res.render('register', { err: "An error occurred."});
                 });
         });
     } else {
-        // remind to handle error 
-        res.status(400).send("");
+        // check password match
+        res.render('register', { err: "Passwords do not match." }); 
     }
 
 }
 
+// login 
 function loginUser(req, res, next) {
     passport.authenticate('local', {
         successRedirect: '/schedules',
-        failureRedirect: '/login', 
+        failureRedirect: '/login',
+        failureFlash: true 
     })(req, res, next);
 
 }
 
-module.exports = {registerUser, loginUser}
+// logout
+function logoutUser(req, res, next) {
+    req.logout();
+    res.redirect('/login');
+}
+
+module.exports = {registerUser, loginUser, logoutUser}

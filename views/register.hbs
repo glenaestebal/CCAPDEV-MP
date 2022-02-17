@@ -5,10 +5,12 @@
 
 
     <div class="logo"><a href="/">Schedule Maker</a></div>
+    
     <form action = "/users/register" method = "POST">
         <div class = "register-container">
             <div class = "register-box">
                 <div class = "register-content">
+                    <h3 style = "color: #800000; text-align: center;"> {{ err }} </h3>
                     <input name = "email" class= "email-input" type = "text" id ="email-input" placeholder = "Email Address">
                     <input name = "username" class= "user-input" type = "text" id ="username-input" placeholder = "Username">
                     <input name = "firstName" class= "user-input" type = "text" id ="firstName-input" placeholder = "First name">

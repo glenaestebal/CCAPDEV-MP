@@ -14,7 +14,7 @@ module.exports = function(passport) {
             User.findOne({ username: username })
                 .then(user => {
                     if(!user) {
-                        return done(null, false);
+                        return done(null, false, { message: "Username is not registered." });
                     }
 
                     // matching password
@@ -23,7 +23,7 @@ module.exports = function(passport) {
                         if (isMatch) {
                             return done(null, user);
                         } else {
-                            return done(null, false);
+                            return done(null, false, {message: "Password incorrect." });
                         }
                     });
                 })

@@ -9,7 +9,7 @@ function loginView(req, res) {
 }
 
 function scheduleView(req, res) {
-  res.render("schedules", {title: "Schedules | Schedule Maker"});
+  res.render("schedules", {title: "Schedules | Schedule Maker", user: req.user});
 }
 
 function profileView(req, res) {
