@@ -1,0 +1,17 @@
+<div>
+
+	<link rel = "stylesheet" href = "../../assets/css/schedstyle.css">
+	
+	<table>
+			
+			<tbody>
+			  {{#each array}}
+				<tr>
+				  {{#each this}}
+					<td>{{this}}</td>
+				  {{/each}}
+				</tr>
+			  {{/each}}
+			</tbody>
+	</table>
+</div>

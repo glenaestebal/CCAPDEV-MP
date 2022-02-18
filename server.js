@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const dbURI = 'mongodb://localhost/schedule-db';
 
 const userRoute = require('./routes/user-route');
+const scheduleRoute = require('./routes/schedule-route');
 const viewRoute = require('./routes/view-route');
 
 
@@ -56,6 +57,7 @@ app.use(function(req, res, next) {
 
 // routes
 app.use('/users', userRoute);
+app.use('/schedules', scheduleRoute);
 app.use('', viewRoute);
 
 app.get("/", (req, res)=> {

@@ -1,10 +1,13 @@
 
 var mongoose = require('mongoose');
 
+const scheduleItem = require('./scheduleitem-model').schema;
+const schedule = require('./schedule-model').schema;
+
 var UserSchema = new mongoose.Schema({
 	username: {
         type: String,
-        unique: true,
+		unique: true,
         required: true
     },
 	password: {
@@ -25,13 +28,13 @@ var UserSchema = new mongoose.Schema({
     },
 	email: {
         type: String,
-        unique: true,
+		unique: true,
         required: true
     },
-	schedules: {
-        type: Array,
+	schedules: [{
+        type: schedule,
         required: false
-    },
+    }],
 	friends: {
         type: Array,
         required: false
