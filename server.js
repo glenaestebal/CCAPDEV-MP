@@ -3,10 +3,9 @@ const express = require('express');
 const app = express();
 const expHbs = require('express-handlebars');
 const session = require('express-session');
-
 const flash = require('connect-flash');
-
 const passport = require('passport');
+const methodOverride = require('method-override');
 
 const mongoose = require('mongoose'); 
 const dbURI = 'mongodb://localhost/schedule-db';
@@ -15,11 +14,11 @@ const userRoute = require('./routes/user-route');
 const viewRoute = require('./routes/view-route');
 
 
-
 app.use (express.static(__dirname + "/"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
+app.use(methodOverride('_method'));
 const port = 3000;
 
 require('./config/passport')(passport);

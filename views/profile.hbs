@@ -1,21 +1,21 @@
 <div>
+	
 
 	<link rel = "stylesheet" href = "../../assets/css/profilestyle.css">
 	
-	        <section class = "details">
+			<section class = "details">
 				<div class = "details-container">
 					<div class = "p-heading">
-						<h3>John Smith</h3>
+						<h3> {{ user.firstName }} {{user.lastName}} </h3>
 					</div>
 					<div>
-						<h4>@youngcollegestudent</h4>
-						<h4>3 friends</h4>
+						<h4>@{{user.username}}</h4>
 					</div>
 					<div>
 						<p>please make me a good schedule</p>
 					</div>
 					<div class = "edit-button-container">
-						<button class = "edit-button">Edit Profile</div>
+						<button class = "edit-button">Edit Profile</button>
 				</div>
 				
 				<div class = "profile-container">
@@ -25,22 +25,38 @@
 						</div>
 						
 						<div class = "p-box-details">
-							<form>
+							<form action = '/users/edit-profile?_method=PUT' method = "POST">
 								<label for = "username">USERNAME</label>
-									<input type = "text" id = "username" name = "username" value = "youngcollegestudent"><br><br>
+									<input type = "text" id = "username" name = "username"  value = "{{ user.username }}" class = "disabled-input"><br><br>
 								<label for = "bio">BIO</label>
-									<input type="text" id="bio" name="bio" value="please make me a good schedule"><br><br>
+									<input type="text" id="bio" name="bio" value="please make me a good schedule" class = "disabled-input"><br><br>
 								<label for = "fname">FIRST NAME</label>
-									<input type = "text" id = "fname" name = "fname" value = "John"><br><br>
+									<input type = "text" id = "fname" name = "firstName" value = "{{ user.firstName }}" class = "disabled-input"><br><br>
 								<label for = "lname">LAST NAME</label>
-									<input type = "text" id = "lname" name = "lname" value = "Smith"><br><br>
+									<input type = "text" id = "lname" name = "lastName" value = "{{ user.lastName }}" class = "disabled-input"><br><br>
 								<label for = "email">EMAIL</label>
-									<input type = "text" id = "email" name = "email" value = "student123@school.com"><br><br>
-								<label for = "password">PASSWORD</label>
-									<input type = "password" id = "password" name = "password" value = "hello123">
+									<input type = "text" id = "email" name = "email" value = "{{ user.email }}" class = "disabled-input"><br><br>
+								<div class = "edit-button-container">
+									<button class = "edit-button">Save</button>
+								</div>
 							</form> 
 						</div>
 					</div>
 				</div>
 			</section>
 </div>
+
+<script>
+
+const editButton = document.querySelector(".edit-button");
+editButton.addEventListener("click", () => {
+	const inputs = document.querySelectorAll(".disabled-input");
+
+	for (let i = 0; i < inputs.length; i++)	{
+		inputs[i].classList.remove("disabled-input");
+	}
+})
+
+
+	
+</script>

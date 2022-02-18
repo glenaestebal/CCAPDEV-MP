@@ -4,11 +4,24 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const saltRound = 8;
 
+function updateUser(req, res) {
+    const { email, username, bio, firstName, lastName } = req.body;
+    
+    User.findOneAndUpdate({username}, {email, bio, firstName, lastName}, {returnOriginal: false})
+        .then((user)=>{
+                res.render("profile", {title: "Profile | Schedulemaker", user: user.toJSON()});
+            }
+        )
+        .catch((err) => {
+            console.log(err);
+            return res.status(400).send(" ");
+        })
+}
+
 function registerUser(req, res) {
    
     const { email, username, firstName, lastName, password, confirmPassword } = req.body;
     let errors = [];
-    
     
     // check required fields
     if (email === "" || username === "" || firstName === "" || lastName === "" || password === "" || confirmPassword === "" )   {
@@ -55,4 +68,5 @@ function logoutUser(req, res, next) {
     res.redirect('/login');
 }
 
-module.exports = {registerUser, loginUser, logoutUser}
+
+module.exports = {updateUser, registerUser, loginUser, logoutUser}

@@ -13,7 +13,7 @@ function scheduleView(req, res) {
 }
 
 function profileView(req, res) {
-  res.render("profile", {title: "Profile | Schedule Maker"});
+  res.render("profile", {title: "Profile | Schedule Maker", user: req.user.toJSON()});
 }
 
 
