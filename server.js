@@ -61,7 +61,7 @@ app.use('/schedules', scheduleRoute);
 app.use('', viewRoute);
 
 app.get("/", (req, res)=> {
-    res.render("index", {title: "Home | Schedule Maker"});
+    res.render("index", {title: "Home | Schedule Maker", user: req.user});
 })
 
 mongoose.connect(dbURI, {useNewUrlParser : true, useUnifiedTopology: true})

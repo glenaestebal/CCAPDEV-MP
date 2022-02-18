@@ -64,7 +64,7 @@ function generateTable(req, res) {
 		}
 	});
 
-	res.render("schedules.hbs", {array: schedtable});
+	res.render("schedules.hbs", {array: schedtable, user: req.user});
 }
 
 module.exports = {saveSchedule, newSchedule, generateTable}
