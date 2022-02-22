@@ -27,7 +27,7 @@ function saveSchedule(req, res) {
 			});
 		}
 		else {
-		res.render("schedules.hbs", {user: req.user,scheduleCount: req.user.schedules.length, schedules: req.user.schedules, error: ["Schedule slot is not vacant."]});
+		res.render("schedules.hbs", {user: req.user, schedules: req.user.schedules, error: ["Schedule slot is not vacant."]});
 		}
 	});
 		
@@ -41,8 +41,9 @@ function newSchedule(req, res) {
 		const schedule = new Schedule();
 		user.schedules.push(schedule);
 		user.save();
+		res.render("schedules.hbs", {user: req.user, schedules: user.schedules, added: ["A new schedule is added."]});
 	});
-	res.render("schedules.hbs", {user: req.user, scheduleCount: req.user.schedules.length, schedules: req.user.schedules, added: ["A new schedule is added."]});
+	
 }
 
 function generateTable(req, res) {
@@ -80,7 +81,7 @@ function generateTable(req, res) {
 		}
 	});
 
-	res.render("schedules.hbs", {array: schedtable, user: req.user,scheduleCount: req.user.schedules.length, schedules: req.user.schedules});
+	res.render("schedules.hbs", {array: schedtable, user: req.user, schedules: req.user.schedules});
 }
 
 module.exports = {saveSchedule, newSchedule, generateTable}
