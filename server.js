@@ -31,6 +31,12 @@ const hbs = expHbs.create({
     partialsDir: __dirname + '/views/partials'
 });
 
+hbs.handlebars.registerHelper('incremented', function (index) {
+		var value = index;
+		value++;
+		return value;
+	});
+
 app.set ('view engine', "hbs");
 app.engine ('hbs', hbs.engine);
 

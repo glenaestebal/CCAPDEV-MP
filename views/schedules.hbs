@@ -3,13 +3,20 @@
 	<link rel = "stylesheet" href = "../../assets/css/schedstyle.css">
 	
 	<form action = "/schedules/new" method="get">
-		<button type="submit">New Schedule</button> <br>  
+		<br><button type="submit">New Schedule</button> <br> <br>
 	</form>
+	<label style = "color: GREEN">{{added}}</label>	
 	
 	<form action = "/schedules/save" method="POST">
-	
-			<input type="number" id="schednum" name="schednum" placeholder="Schedule Number">
-		
+			
+			<label>Schedule Number: </label>
+			
+			<select id="schednum" name="schednum">
+				{{#each schedules}}
+				<option value={{@index}}>{{incremented @index}}</option>
+				{{/each}}
+			</select>
+			
 			<label for="time">Time: </label>
 			<input type="time" id="time" name="time">
 			
@@ -47,11 +54,17 @@
 			
 			<input type="text" id="event" name="event" placeholder="Event/Item">
 			
-			<button type="submit">Add event/item</button> <br> <br>
+			<button type="submit">Add event/item</button> <br>
 		</form>
+		<label style = "color: #800000">{{error}}</label><br><br>
 		
 		<form action = "/schedules/table" method="post">
-		<input type="number" id="schednum" name="schednum" placeholder="Schedule Number">
+		<label>Schedule Number: </label>
+		<select id="schednum" name="schednum">
+				{{#each schedules}}
+				<option value={{@index}}>{{incremented @index}}</option>
+				{{/each}}
+			</select>
 		<button type="submit">Generate Table</button> <br>  
 		</form>
 		

@@ -5,28 +5,44 @@ const ScheduleItem = require('../models/scheduleitem-model');
 
 function saveSchedule(req, res) {
 	
+	let exists = false;
+	let error = [];
 	const scheduleItem = new ScheduleItem({ time: req.body.time, day: req.body.day, event: req.body.event});
 	User.findById(req.user.id, function(err, user){
-		var schedule = user.schedules[req.body.schednum - 1];
+		var schedule = user.schedules[req.body.schednum];
+		for (let i = 0; i < schedule.item.length; i++){
+			if (req.body.time == schedule.item[i].time && req.body.day == schedule.item[i].day){
+				exists = true;
+			}
+		}	
+		if (!(exists)){
 		schedule.item.push(scheduleItem);
-		schedule.save();
 		user.save();
+		scheduleItem.save()
+			.then((scheduleItem) => res.status(200).redirect('/schedules'))
+			.catch((error) => {
+				// remind to handle error
+				console.log(error);
+				res.status(400).send(" ")
+			});
+		}
+		else {
+		res.render("schedules.hbs", {user: req.user,scheduleCount: req.user.schedules.length, schedules: req.user.schedules, error: ["Schedule slot is not vacant."]});
+		}
 	});
-	scheduleItem.save()
-                .then((scheduleItem) => res.status(200).redirect('/schedules'))
-                .catch((error) => {
-                    // remind to handle error
-                    console.log(error);
-                    res.status(400).send(" ")
-                });
+		
+	
 }
 
 function newSchedule(req, res) {
+	
+	let added = [];
 	User.findById(req.user.id, function(err, user){
 		const schedule = new Schedule();
 		user.schedules.push(schedule);
 		user.save();
 	});
+	res.render("schedules.hbs", {user: req.user, scheduleCount: req.user.schedules.length, schedules: req.user.schedules, added: ["A new schedule is added."]});
 }
 
 function generateTable(req, res) {
@@ -35,7 +51,7 @@ function generateTable(req, res) {
 	schedtable.push(["Time", "Sunday", "Time", "Monday", "Time", "Tuesday","Time", "Wednesday","Time", "Thursday","Time", "Friday","Time", "Saturday"]);
 	
 	User.findById(req.user.id, function(err, user){
-		var schedule = user.schedules[req.body.schednum - 1];
+		var schedule = user.schedules[req.body.schednum];
 		schedule.item.sort(function(a, b) {
 			return parseFloat(a.time) - parseFloat(b.time);
 		});
@@ -64,7 +80,7 @@ function generateTable(req, res) {
 		}
 	});
 
-	res.render("schedules.hbs", {array: schedtable, user: req.user});
+	res.render("schedules.hbs", {array: schedtable, user: req.user,scheduleCount: req.user.schedules.length, schedules: req.user.schedules});
 }
 
 module.exports = {saveSchedule, newSchedule, generateTable}
